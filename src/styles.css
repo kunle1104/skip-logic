@@ -1,0 +1,47 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import '~bootstrap/dist/css/bootstrap.min.css';
+
+html {
+   font-size: 0.8rem;
+
+}
+h1,h2,h3,h4,h5,h6{
+   font-family: 'Fjalla One', sans-serif;
+}
+p{
+   font-family: 'Bitter', serif;
+}
+.wait{
+  display: block;
+  height:auto;
+  margin: 200px auto;
+  width:64px;
+}
+
+input.ng-invalid.ng-touched {
+  border: 1px solid red;
+}
+.error-message{
+   color:red;
+}
+label{
+   color:#428bca;
+}
+
+@media (min-width: 576px) {
+    html {
+      font-size:0.8rem;
+    }
+ }
+@media (min-width: 768px) {
+
+}
+@media (min-width: 992px) {
+  html {
+    font-size: 1.0rem;
+  }
+}
+@media (min-width: 1200px) {
+
+}

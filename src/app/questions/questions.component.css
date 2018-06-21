@@ -1,0 +1,10 @@
+.wrapper{
+   border: 2px lightblue solid;
+   border-radius: 10px;
+}
+.side{ /*side bar for questions div*/
+    border-right: 2px solid lightblue;
+}
+.indicator button {
+    border-radius: 50%;
+}

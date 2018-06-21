@@ -1,0 +1,326 @@
+<div class = "container">
+  <h3 class="p-2">Survey</h3>
+  <ng-template #content let-c="close" let-d="dismiss">
+     <div class="modal-header">
+       <h4 class="modal-title">Skip Logic Survey</h4>
+       <button type="button" class="close" aria-label="Close" (click)="onCloseModal('Cross click')">
+       <!--(click)="d('Cross click')">-->
+         <span aria-hidden="true">&times;</span>
+       </button>
+     </div>
+     <div class="modal-body">
+       <p>{{modalMessage.body}}</p>
+       <p>{{modalMessage.close}}</p>
+     </div>
+     <div class="modal-footer">
+       <button type="button" class="btn btn-outline-dark" (click)="onCloseModal('Close click')">Close</button>
+     </div>
+  </ng-template>
+  <div class="indicator p-4">
+      <button type="button" class="btn btn-success mr-2" [disabled]="!show.q1">Q1.</button>
+      <button type="button" class="btn btn-success mr-2" [disabled]="!show.q2">Q2.</button>
+      <button type="button" class="btn btn-success mr-2" [disabled]="!show.q3">Q3.</button>
+      <button type="button" class="btn btn-success mr-2" [disabled]="!show.q4">Q4.</button>
+  </div>
+  <div class="row wrapper m-1 pl-1 pt-2">
+     <div class="col-2 side">
+       <div *ngIf="show.q1">
+         <button type="button" class="btn btn-primary">Q1.</button>
+       </div>
+       <div *ngIf="show.q2">
+         <button type="button" class="btn btn-primary">Q2.</button>
+       </div>
+       <div *ngIf="show.q3">
+         <button type="button" class="btn btn-primary">Q3.</button>
+       </div>
+       <div *ngIf="show.q4">
+         <button type="button" class="btn btn-primary">Q4.</button>
+       </div>
+     </div>
+     <div class="col-10">
+        <div *ngIf="show.q1">
+         <form novalidate [formGroup]="q1Form" (ngSubmit)="onSubmitQ1(content)">
+           <p> <span>Q1.</span> What is your age group?</p>
+           <div class="form-check">
+               <input class="form-check-input" type="radio" name="question1" id="q1"
+               formControlName="question1" value="option1" checked>
+               <label class="form-check-label" for="q1">
+                 18 - 24 years old
+               </label>
+           </div>
+           <div class="form-check">
+               <input class="form-check-input" type="radio" name="question1" id="q2"
+               formControlName="question1"  value="option2">
+               <label class="form-check-label" for="q2">
+                 25 - 34 years old
+               </label>
+            </div>
+            <div class="form-check">
+               <input class="form-check-input" type="radio" name="question1" id="q3"
+               formControlName="question1"  value="option3">
+               <label class="form-check-label" for="q3">
+                 35 - 44 years old
+               </label>
+            </div>
+            <div class="form-check">
+               <input class="form-check-input" type="radio" name="question1" id="q4"
+               formControlName="question1"  value="option4">
+               <label class="form-check-label" for="q4">
+                 45 - 54 years old
+               </label>
+            </div>
+            <div class="form-check">
+               <input class="form-check-input" type="radio" name="question1" id="q5"
+               formControlName="question1"  value="option5">
+               <label class="form-check-label" for="q5">
+                 55 or older
+               </label>
+            </div>
+            <div>
+               <button type="submit" class="btn btn-primary my-3 px-4" [disabled]="q1Form.invalid">
+                 Submit
+               </button>
+            </div>
+         </form>
+       </div>
+       <div *ngIf="show.q2">
+        <form novalidate [formGroup]="q2Form" (ngSubmit)="onSubmitQ2(content)">
+          <p> <span>Q2.</span> Rank the following with one been the best</p>
+          <div class="form-check">
+              <input class="form-check-input" type="radio" name="question2" id="q2_1"
+              formControlName="question2"  value="option1" checked>
+              <label class="form-check-label" for="q1">
+                Social Worker 1
+              </label>
+          </div>
+          <div class="form-check">
+              <input class="form-check-input" type="radio" name="question2" id="q2_2"
+              formControlName="question2"  value="option2">
+              <label class="form-check-label" for="q2">
+                Social Worker 2
+              </label>
+           </div>
+           <div class="form-check">
+              <input class="form-check-input" type="radio" name="question2" id="q2_3"
+              formControlName="question2" value="option3">
+              <label class="form-check-label" for="q3">
+                Social Worker 3
+              </label>
+           </div>
+
+           <div>
+              <button type="submit" class="btn btn-primary my-3 px-4" [disabled]="q2Form.invalid">
+                Submit
+              </button>
+           </div>
+        </form>
+      </div>
+      <div *ngIf="show.q3">
+       <form novalidate [formGroup]="q3Form" (ngSubmit)="onSubmitQ3(content)">
+         <p> <span>Q3.</span> Please Rate the extent to which you disagree with the following</p>
+         <hr>
+         <p> I am proud to tell others that I am a part of the PRC's programs </p>
+         <div class="form-check">
+            <div class="row">
+             <div class="col-md-3">
+             <input class="form-check-input" type="radio" name="question3_1" id="q3_1_1"
+             formControlName="question3_1" value="option3_1_1" checked>
+             <label class="form-check-label" for="q3_1_1">
+              Strongly Disagree
+             </label>
+             </div>
+
+             <div class="col-md-2">
+             <input class="form-check-input" type="radio" name="question3_1" id="q3_1_2"
+             formControlName="question3_1" value="option3_1_2">
+             <label class="form-check-label" for="q3_1_2">
+              Disagree
+             </label>
+             </div>
+
+             <div class="col-md-2">
+             <input class="form-check-input" type="radio" name="question3_1" id="q3_1_3"
+             formControlName="question3_1" value="option3_1_3">
+             <label class="form-check-label" for="q3_1_3">
+              Neutral
+             </label>
+             </div>
+
+             <div class="col-md-2">
+             <input class="form-check-input" type="radio" name="question3_1" id="q3_1_4"
+             formControlName="question3_1" value="option3_1_4">
+             <label class="form-check-label" for="q3_1_4">
+              Agree
+             </label>
+             </div>
+
+             <div class="col-md-3">
+             <input class="form-check-input" type="radio" name="question3_1" id="q3_1_5"
+             formControlName="question3_1" value="option3_1_5">
+             <label class="form-check-label" for="q3_1_5">
+              Strongly Agree
+             </label>
+             </div>
+           </div>
+         </div>
+         <hr>
+         <p> I feel I have more confidence in raising my children </p>
+         <div class="form-check">
+            <div class="row">
+             <div class="col-md-3">
+             <input class="form-check-input" type="radio" name="question3_2" id="q3_2_1"
+             formControlName="question3_2" value="option3_2_1" checked>
+             <label class="form-check-label" for="q3_2_1">
+              Strongly Disagree
+             </label>
+             </div>
+
+             <div class="col-md-2">
+             <input class="form-check-input" type="radio" name="question3_2" id="q3_2_2"
+             formControlName="question3_2" value="option3_2_2">
+             <label class="form-check-label" for="q3_2_2">
+              Disagree
+             </label>
+             </div>
+
+             <div class="col-md-2">
+             <input class="form-check-input" type="radio" name="question3_2" id="q3_2_3"
+             formControlName="question3_2" value="option3_2_3">
+             <label class="form-check-label" for="q3_2_3">
+              Neutral
+             </label>
+             </div>
+
+             <div class="col-md-2">
+             <input class="form-check-input" type="radio" name="question3_2" id="q3_2_4"
+             formControlName="question3_2" value="option3_2_4">
+             <label class="form-check-label" for="q3_2_4">
+              Agree
+             </label>
+             </div>
+
+             <div class="col-md-3">
+             <input class="form-check-input" type="radio" name="question3_2" id="q3_2_5"
+             formControlName="question3_2" value="option3_2_5">
+             <label class="form-check-label" for="q3_2_5">
+              Strongly Agree
+             </label>
+             </div>
+           </div>
+         </div>
+         <hr>
+         <p> I am well informed of my children's wellbeing</p>
+         <div class="form-check">
+            <div class="row">
+             <div class="col-md-3">
+             <input class="form-check-input" type="radio" name="question3_3" id="q3_3_1"
+             formControlName="question3_3" value="option3_3_1" checked>
+             <label class="form-check-label" for="q3_3_1">
+              Strongly Disagree
+             </label>
+             </div>
+
+             <div class="col-md-2">
+             <input class="form-check-input" type="radio" name="question3_3" id="q3_3_2"
+             formControlName="question3_3" value="option3_3_2">
+             <label class="form-check-label" for="q3_3_2">
+              Disagree
+             </label>
+             </div>
+
+             <div class="col-md-2">
+             <input class="form-check-input" type="radio" name="question3_3" id="q3_3_3"
+             formControlName="question3_3" value="option3_3_3">
+             <label class="form-check-label" for="q3_3_3">
+              Neutral
+             </label>
+             </div>
+
+             <div class="col-md-2">
+             <input class="form-check-input" type="radio" name="question3_3" id="q3_3_4"
+             formControlName="question3_3" value="option3_3_4">
+             <label class="form-check-label" for="q3_3_4">
+              Agree
+             </label>
+             </div>
+
+             <div class="col-md-3">
+             <input class="form-check-input" type="radio" name="question3_3" id="q3_3_5"
+             formControlName="question3_3" value="option3_3_5">
+             <label class="form-check-label" for="q3_3_5">
+              Strongly Agree
+             </label>
+             </div>
+           </div>
+         </div>
+         <hr>
+         <p> Social works are easily accesible when needed</p>
+         <div class="form-check">
+            <div class="row">
+             <div class="col-md-3">
+               <input class="form-check-input" type="radio" name="question3_4" id="q3_4_1"
+               formControlName="question3_4" value="option3_4_1" checked>
+               <label class="form-check-label" for="q3_4_1">
+                Strongly Disagree
+               </label>
+             </div>
+
+             <div class="col-md-2">
+               <input class="form-check-input" type="radio" name="question3_4" id="q3_4_2"
+               formControlName="question3_4" value="option3_4_2">
+               <label class="form-check-label" for="q3_4_2">
+                Disagree
+               </label>
+             </div>
+
+             <div class="col-md-2">
+               <input class="form-check-input" type="radio" name="question3_4" id="q3_4_3"
+               formControlName="question3_4" value="option3_4_3">
+               <label class="form-check-label" for="q3_4_3">
+                Neutral
+               </label>
+             </div>
+
+             <div class="col-md-2">
+               <input class="form-check-input" type="radio" name="question3_4" id="q3_4_4"
+               formControlName="question3_4" value="option3_4_4">
+               <label class="form-check-label" for="q3_4_4">
+                Agree
+               </label>
+             </div>
+
+             <div class="col-md-3">
+               <input class="form-check-input" type="radio" name="question3_4" id="q3_4_5"
+               formControlName="question3_4" value="option3_4_5">
+               <label class="form-check-label" for="q3_4_5">
+                Strongly Agree
+               </label>
+             </div>
+           </div>
+         </div>
+
+          <div>
+             <button type="submit" class="btn btn-primary my-3 px-4" [disabled]="q3Form.invalid">
+               Submit
+             </button>
+          </div>
+       </form>
+     </div>
+     <div *ngIf="show.q4">
+      <form novalidate [formGroup]="q4Form" (ngSubmit)="onSubmitQ4(content)">
+        <p> <span>Q4.</span> On a scale from 0 to 10, how likely are you to recommend a friend to participate in the PRC program?</p>
+        <div class="form-group">
+           <ngb-rating formControlName="question4" [(rate)]="currentRate"></ngb-rating>
+           <hr>
+           <pre>Rate: <b>{{currentRate}}</b></pre>
+        </div>
+        <div>
+            <button type="submit" class="btn btn-primary my-3 px-4" [disabled]="q4Form.invalid">
+              Submit
+            </button>
+         </div>
+      </form>
+    </div>
+   </div>
+  </div>
+</div>
