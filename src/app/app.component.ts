@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs/Subscription';
+import { MessageService } from './message.service';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +9,23 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'app';
+  message: any;
+  subscription: Subscription;
+
+  constructor( private messageService: MessageService) { }
+
+  ngOnInit() {
+     this.subscription = this.messageService.getMessage()
+       .subscribe(message => {
+         this.message = message;
+         console.log("message received from set logic", this.message);
+         this.messageService.sendRules(this.message);
+     });
+  }
+
+  ngOnDestroy() {
+        // unsubscribe to ensure no memory leaks
+        this.subscription.unsubscribe();
+
+  }
 }

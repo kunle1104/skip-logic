@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs/Subscription';
 
-import {FormGroup, FormControl, FormBuilder, Validators, FormsModule } from '@angular/forms';
+import { FormGroup, FormControl, FormBuilder, Validators, FormsModule } from '@angular/forms';
 import { NgbModal, ModalDismissReasons,  NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-
-import {RatingValidator} from './rating-validator';
+import { MessageService } from '../message.service';
+import { RatingValidator} from './rating-validator';
 
 @Component({
   selector: 'app-questions',
@@ -34,11 +35,22 @@ export class QuestionsComponent implements OnInit {
      close: "",
      route:""
   };
+  rules:any;
+  //message: any;
+  //subscription: Subscription;
+
   constructor(public formBuilder: FormBuilder,
               private router: Router,
+              private messageService: MessageService,
               private modalService: NgbModal) { }
 
   ngOnInit() {
+    this.rules = new Array(this.messageService.getRules());
+    console.log("In test logic, The rules are :", this.rules);
+    if(this.rules){
+        console.log("Rules are defined");
+    }
+
     this.q1Form = this.formBuilder.group({ //question 1 formbuilder
         question1: ['', Validators.required]
     });
@@ -55,6 +67,7 @@ export class QuestionsComponent implements OnInit {
         question4: ['', [Validators.required]]
     });
   }
+
   open(content) { //open ngb modal dialog
     this.modalReference = this.modalService.open(content);
     this.modalReference.result.then((result) => {
@@ -80,55 +93,118 @@ export class QuestionsComponent implements OnInit {
     this.modalReference.close();
     this.router.navigate([this.modalMessage.route]);
   }
+  endSurvey(c){
+     //console.log("You are 18 to 24 years old");
+     this.modalMessage.body = "Your age group is not allowed to take this survey.";
+     this.modalMessage.close = "This survey will now close. Thank you.";
+     this.modalMessage.route = "/";
+     this.open(c);
+  }
+  disqualified(c){
+     //console.log("You are 25 to 34 years old");
+     this.modalMessage.body = "Sorry, you are disqualified from taking this survey.";
+     this.modalMessage.close = "You will be redirected to the disqualification page.";
+     this.modalMessage.route = "/disqualified";
+     this.open(c);
+  }
+  gotoQ2(){
+     //console.log("You are 35 to 44 years old");
+     this.show.q1 = 0;
+     this.show.q2 = 1;
+     this.show.q3 = 0;
+     this.show.q4 = 0;
+  }
+  gotoQ3(){
+     //console.log("You are 55 years old or older");
+     this.show.q1 = 0;
+     this.show.q2 = 0;
+     this.show.q3 = 1;
+     this.show.q4 = 0;
+  }
+  gotoQ4(){
+     //console.log(this.q3Form.value);
+     this.show.q1 = 0;
+     this.show.q2 = 0;
+     this.show.q3 = 0;
+     this.show.q4 = 1;
+  }
  onSubmitQ1(c){ // form 1 (Q1) handler, controls skip logic
       //console.log(this.q1Form.value.question1);
-      if(this.q1Form.value.question1 === "option1"){
-          console.log("You are 18 to 24 years old");
-          this.modalMessage.body = "Your age group is not allowed to take this survey.";
-          this.modalMessage.close = "This survey will now close. Thank you.";
-          this.modalMessage.route = "/";
-          this.open(c);
-
+      /*console.log("in question:", this.rules[0][0].option1);
+      console.log("in question:", this.rules[0][0].option2);
+      console.log("in question:", this.rules[0][0].option3);
+      console.log("in question:", this.rules[0][0].option4);
+      console.log("in question:", this.rules[0][0].option5);
+      console.log("---------------------------------------");
+      console.log("in question:", this.rules[0][0]);
+      console.log("in question:", this.rules[0][1]);
+      console.log("in question:", this.rules[0][2]);
+      console.log("in question:", this.rules[0][3]);
+      console.log("in question:", this.rules[0][4]);*/
+      /*if(this.q1Form.value.question1 === "option1"){
+          this.endSurvey(c);
       }else if(this.q1Form.value.question1 === "option2"){
-          console.log("You are 25 to 34 years old");
-          this.modalMessage.body = "Sorry, you are disqualified from taking this survey.";
-          this.modalMessage.close = "You will be redirected to the disqualification page.";
-          this.modalMessage.route = "/disqualified";
-          this.open(c);
-      }else if(this.q1Form.value.question1 === "option3"){ // goto Question2
-          console.log("You are 35 to 44 years old");
-          this.show.q1 = 0;
-          this.show.q2 = 1;
-          this.show.q3 = 0;
-          this.show.q4 = 0;
-
-      }else if(this.q1Form.value.question1 === "option4"){ //end survey
-          console.log("You are 45 to 54 years old");
-          this.modalMessage.body = "We do not require any more info from you for this survey.";
-          this.modalMessage.close = "Thank you for participating.";
-          this.modalMessage.route = "/";
-          this.open(c);
+          this.disqualified(c);
+      }else if(this.q1Form.value.question1 === "option3"){
+          this.gotoQ2();
+      }else if(this.q1Form.value.question1 === "option4"){
+          this.endSurvey(c);
       }else { // goto question 3
-          console.log("You are 55 years old or older");
-          this.show.q1 = 0;
-          this.show.q2 = 0;
-          this.show.q3 = 1;
-          this.show.q4 = 0;
+          this.gotoQ3();
+      }*/
+      if(this.q1Form.value.question1 === "option1"){
+          if(this.rules[0][0].option1 === "0"){ this.gotoQ2() }
+          else if (this.rules[0][0].option1 === "1"){ this.gotoQ3() }
+          else if (this.rules[0][0].option1 === "2"){ this.gotoQ4() }
+          else if (this.rules[0][0].option1 === "3"){ this.endSurvey(c) }
+          else { this.disqualified(c) }
+      }else if(this.q1Form.value.question1 === "option2"){
+        if(this.rules[0][0].option2 === "0"){ this.gotoQ2() }
+        else if (this.rules[0][0].option2 === "1"){ this.gotoQ3() }
+        else if (this.rules[0][0].option2 === "2"){ this.gotoQ4() }
+        else if (this.rules[0][0].option2 === "3"){ this.endSurvey(c) }
+        else  { this.disqualified(c) }
+      }else if(this.q1Form.value.question1 === "option3"){
+        if(this.rules[0][0].option3 === "0"){ this.gotoQ2() }
+        else if (this.rules[0][0].option3 === "1"){ this.gotoQ3() }
+        else if (this.rules[0][0].option3 === "2"){ this.gotoQ4() }
+        else if (this.rules[0][0].option3 === "3"){ this.endSurvey(c) }
+        else { this.disqualified(c) }
+      }else if(this.q1Form.value.question1 === "option4"){
+        if(this.rules[0][0].option4 === "0"){ this.gotoQ2() }
+        else if (this.rules[0][0].option4 === "1"){ this.gotoQ3() }
+        else if (this.rules[0][0].option4 === "2"){ this.gotoQ4() }
+        else if (this.rules[0][0].option4 === "3"){ this.endSurvey(c) }
+        else { this.disqualified(c) }
+      }else { // goto question 3
+        if(this.rules[0][0].option5 === "0"){ this.gotoQ2() }
+        else if (this.rules[0][0].option5 === "1"){ this.gotoQ3() }
+        else if (this.rules[0][0].option5 === "2"){ this.gotoQ4() }
+        else if (this.rules[0][0].option5 === "3"){ this.endSurvey(c) }
+        else { this.disqualified(c) }
       }
   }
   onSubmitQ2(c){ // form 2 (Q2) handler, goto question 3
-      console.log(this.q2Form.value.question2);
-      this.show.q1 = 0;
-      this.show.q2 = 0;
-      this.show.q3 = 1;
-      this.show.q4 = 0;
+    if(this.q2Form.value.question2 === "option1"){
+        if(this.rules[0][1].option1 === "0"){ this.gotoQ3() }
+        else if (this.rules[0][1].option1 === "1"){ this.gotoQ4() }
+        else if (this.rules[0][1].option1 === "2"){ this.endSurvey(c) }
+        else { this.disqualified(c) }
+    }else if(this.q2Form.value.question2 === "option2"){
+        if(this.rules[0][1].option2 === "0"){ this.gotoQ3() }
+        else if (this.rules[0][1].option2 === "1"){ this.gotoQ4() }
+        else if (this.rules[0][1].option2 === "2"){ this.endSurvey(c) }
+        else { this.disqualified(c) }
+    }else{
+        if(this.rules[0][1].option3 === "0"){ this.gotoQ3() }
+        else if (this.rules[0][1].option3 === "1"){ this.gotoQ4() }
+        else if (this.rules[0][1].option3 === "2"){ this.endSurvey(c) }
+        else { this.disqualified(c) }
+    }
+      //this.gotoQ3();
   }
   onSubmitQ3(c){ // form 3 (Q3) handler, goto question 4
-      console.log(this.q3Form.value);
-      this.show.q1 = 0;
-      this.show.q2 = 0;
-      this.show.q3 = 0;
-      this.show.q4 = 1;
+      this.gotoQ4();
   }
   onSubmitQ4(c){ // form 4 (Q4) handler, back home
       console.log(this.q4Form.value.question4);

@@ -13,6 +13,12 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
 
   }
+  set(){
+     this.router.navigate(['/set']);
+  }
+  view(){
+     this.router.navigate(['/view']);
+  }
   survey(){
      this.router.navigate(['/survey']);
   }

@@ -1,0 +1,28 @@
+.main{
+
+}
+.sized {
+   width:135px;
+}
+.align-right{
+   text-align: justify;
+}
+.questions-col{
+   /*border: 2px solid lightblue;*/
+}
+.logic-col{
+   /*border: 2px solid blue;*/
+
+}
+.logic-progress{
+   background-color: lightgray;
+}
+.round{
+   border-radius: 50%;
+}
+.danger{
+   background-color: #d9534f;
+}
+.success{
+  background-color:  #5cb85c;;
+}

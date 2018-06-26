@@ -9,19 +9,26 @@ import { AppComponent } from './app.component';
 import { QuestionsComponent } from './questions/questions.component';
 import { HomeComponent } from './home/home.component';
 import { DisqualifiedComponent } from './disqualified/disqualified.component';
+import { SetLogicComponent } from './set-logic/set-logic.component';
+import { ViewLogicComponent } from './view-logic/view-logic.component';
+import { MessageService } from './message.service';
 
 const routes: Routes = [
      {path: '', redirectTo: 'home', pathMatch: 'full'},
      {path: 'home', component: HomeComponent},
      {path: 'survey', component: QuestionsComponent},
-     {path: 'disqualified', component: DisqualifiedComponent}
+     {path: 'disqualified', component: DisqualifiedComponent},
+     {path: 'set', component: SetLogicComponent},
+     {path: 'view', component: ViewLogicComponent}
 ];
 @NgModule({
   declarations: [
     AppComponent,
     QuestionsComponent,
     HomeComponent,
-    DisqualifiedComponent
+    DisqualifiedComponent,
+    SetLogicComponent,
+    ViewLogicComponent
   ],
   imports: [
     BrowserModule,
@@ -29,7 +36,7 @@ const routes: Routes = [
     RouterModule.forRoot(routes),
     NgbModule.forRoot()
   ],
-  providers: [],
+  providers: [MessageService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
