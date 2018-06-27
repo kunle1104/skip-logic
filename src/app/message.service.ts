@@ -5,7 +5,7 @@ import { Subject } from 'rxjs/Subject';
 @Injectable()
 export class MessageService {
     private subject = new Subject<any>();
-    private rules: any;
+    private rules: any = null;
 
     sendMessage(message: any) {
         this.subject.next(message );

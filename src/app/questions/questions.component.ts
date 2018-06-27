@@ -29,7 +29,7 @@ export class QuestionsComponent implements OnInit {
   currentRate = 0;
 
   closeResult: string;
-  modalReference: any;
+  modalReference: any | undefined;
   modalMessage = {
      body: "",
      close: "",
@@ -47,10 +47,6 @@ export class QuestionsComponent implements OnInit {
   ngOnInit() {
     this.rules = new Array(this.messageService.getRules());
     console.log("In test logic, The rules are :", this.rules);
-    if(this.rules){
-        console.log("Rules are defined");
-    }
-
     this.q1Form = this.formBuilder.group({ //question 1 formbuilder
         question1: ['', Validators.required]
     });
@@ -129,29 +125,10 @@ export class QuestionsComponent implements OnInit {
      this.show.q4 = 1;
   }
  onSubmitQ1(c){ // form 1 (Q1) handler, controls skip logic
-      //console.log(this.q1Form.value.question1);
-      /*console.log("in question:", this.rules[0][0].option1);
-      console.log("in question:", this.rules[0][0].option2);
-      console.log("in question:", this.rules[0][0].option3);
-      console.log("in question:", this.rules[0][0].option4);
-      console.log("in question:", this.rules[0][0].option5);
-      console.log("---------------------------------------");
-      console.log("in question:", this.rules[0][0]);
-      console.log("in question:", this.rules[0][1]);
-      console.log("in question:", this.rules[0][2]);
-      console.log("in question:", this.rules[0][3]);
-      console.log("in question:", this.rules[0][4]);*/
-      /*if(this.q1Form.value.question1 === "option1"){
-          this.endSurvey(c);
-      }else if(this.q1Form.value.question1 === "option2"){
-          this.disqualified(c);
-      }else if(this.q1Form.value.question1 === "option3"){
-          this.gotoQ2();
-      }else if(this.q1Form.value.question1 === "option4"){
-          this.endSurvey(c);
-      }else { // goto question 3
-          this.gotoQ3();
-      }*/
+   console.log(this.rules);
+      if(this.rules[0] == null){
+         this.gotoQ2();
+      }else {
       if(this.q1Form.value.question1 === "option1"){
           if(this.rules[0][0].option1 === "0"){ this.gotoQ2() }
           else if (this.rules[0][0].option1 === "1"){ this.gotoQ3() }
@@ -183,8 +160,12 @@ export class QuestionsComponent implements OnInit {
         else if (this.rules[0][0].option5 === "3"){ this.endSurvey(c) }
         else { this.disqualified(c) }
       }
+    }
   }
   onSubmitQ2(c){ // form 2 (Q2) handler, goto question 3
+    if(this.rules[0] == null){
+       this.gotoQ3();
+    }else {
     if(this.q2Form.value.question2 === "option1"){
         if(this.rules[0][1].option1 === "0"){ this.gotoQ3() }
         else if (this.rules[0][1].option1 === "1"){ this.gotoQ4() }
@@ -201,7 +182,7 @@ export class QuestionsComponent implements OnInit {
         else if (this.rules[0][1].option3 === "2"){ this.endSurvey(c) }
         else { this.disqualified(c) }
     }
-      //this.gotoQ3();
+   }    //this.gotoQ3();
   }
   onSubmitQ3(c){ // form 3 (Q3) handler, goto question 4
       this.gotoQ4();
