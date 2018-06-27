@@ -212,7 +212,6 @@ export class SetLogicComponent implements OnInit {
   }
   onSubmitQ1(){
      this.submitted1 = this.q1LogicForm.value;
-     console.log(this.submitted1);
      this.show.q2 = 1;
      this.show.q3 = 1;
      this.show.q4 = 1;
@@ -220,7 +219,6 @@ export class SetLogicComponent implements OnInit {
   }
   onSubmitQ2(){
      this.submitted2 = this.q2LogicForm.value;
-     console.log(this.submitted2);
      this.show.q2 = 1;
      this.show.q3 = 1;
      this.show.q4 = 1;
@@ -228,7 +226,6 @@ export class SetLogicComponent implements OnInit {
   }
   onSubmitQ3_1(){
      this.submitted3_1 = this.q3_1LogicForm.value;
-     console.log(this.submitted3_1);
      this.show.q2 = 1;
      this.show.q3 = 1;
      this.show.q4 = 1;
@@ -236,7 +233,6 @@ export class SetLogicComponent implements OnInit {
   }
   onSubmitQ3_2(){
      this.submitted3_2 = this.q3_2LogicForm.value;
-     console.log(this.submitted3_2);
      this.show.q2 = 1;
      this.show.q3 = 1;
      this.show.q4 = 1;
@@ -244,7 +240,6 @@ export class SetLogicComponent implements OnInit {
   }
   onSubmitQ3_3(){
      this.submitted3_3 = this.q3_3LogicForm.value;
-     console.log(this.submitted3_3);
      this.show.q2 = 1;
      this.show.q3 = 1;
      this.show.q4 = 1;

@@ -46,7 +46,7 @@ export class QuestionsComponent implements OnInit {
 
   ngOnInit() {
     this.rules = new Array(this.messageService.getRules());
-    console.log("In test logic, The rules are :", this.rules);
+
     this.q1Form = this.formBuilder.group({ //question 1 formbuilder
         question1: ['', Validators.required]
     });
@@ -125,7 +125,7 @@ export class QuestionsComponent implements OnInit {
      this.show.q4 = 1;
   }
  onSubmitQ1(c){ // form 1 (Q1) handler, controls skip logic
-   console.log(this.rules);
+
       if(this.rules[0] == null){
          this.gotoQ2();
       }else {
@@ -188,7 +188,7 @@ export class QuestionsComponent implements OnInit {
       this.gotoQ4();
   }
   onSubmitQ4(c){ // form 4 (Q4) handler, back home
-      console.log(this.q4Form.value.question4);
+      
       this.modalMessage.body = "You have come to the end of the survey.";
       this.modalMessage.close = "Thank you for participating.";
       this.modalMessage.route = "/";

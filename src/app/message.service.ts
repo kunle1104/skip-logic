@@ -17,8 +17,6 @@ export class MessageService {
 
     sendRules(rules:any){
        this.rules = rules;
-       console.log("Gotten rules are :", rules);
-       console.log("Rules in service are:", rules);
     }
     getRules():any{
        return this.rules;

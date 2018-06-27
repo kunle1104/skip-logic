@@ -18,7 +18,6 @@ export class AppComponent {
      this.subscription = this.messageService.getMessage()
        .subscribe(message => {
          this.message = message;
-         console.log("message received from set logic", this.message);
          this.messageService.sendRules(this.message);
      });
   }
